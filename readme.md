@@ -1,4 +1,4 @@
-ZizCon
-=============
+Narozeninový kalendář
+=====================
 
-Stranka o prazskem festivalu deskovych her
+Kalendář sloužící k vizualizaci narozenin
