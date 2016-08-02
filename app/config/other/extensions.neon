@@ -1,0 +1,15 @@
+extensions:
+    console: Kdyby\Console\DI\ConsoleExtension
+    events: Kdyby\Events\DI\EventsExtension
+    annotations: Kdyby\Annotations\DI\AnnotationsExtension
+    doctrine: Kdyby\Doctrine\DI\OrmExtension
+
+events:
+    globalDispatchFirst: on
+
+doctrine:
+    dql:
+        string:
+            date_format: DoctrineExtensions\Query\Mysql\DateFormat
+            power: DoctrineExtensions\Query\Mysql\Power
+            cos: DoctrineExtensions\Query\Mysql\Cos

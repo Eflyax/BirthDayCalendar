@@ -1,0 +1,25 @@
+# Created by .ignore support plugin (hsz.mobi)
+app/config/config.production.neon
+app/config/deploy/
+
+
+/log/*
+/temp/*
+
+.idea
+.settings
+.project
+www/*LiveReload
+www/files/
+
+
+/vendor
+
+.DS_Store
+!.gitignore
+!.htaccess
+!web.config
+app/migrations/
+
+.htdeployment
+mailoutput/

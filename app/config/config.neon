@@ -1,0 +1,38 @@
+#
+# WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+# https://nette.org/security-warning
+#
+parameters:
+
+extensions:
+    console: Kdyby\Console\DI\ConsoleExtension
+    events: Kdyby\Events\DI\EventsExtension
+    annotations: Kdyby\Annotations\DI\AnnotationsExtension
+    doctrine: Kdyby\Doctrine\DI\OrmExtension
+
+
+php:
+	date.timezone: Europe/Prague
+
+
+application:
+	errorPresenter: Base:Error
+	mapping:
+		*: *Module\Presenters\*Presenter
+
+
+
+session:
+	expiration: 14 days
+
+includes:
+    - other/services.neon
+    - other/parameters.neon
+    - other/extensions.neon
+
+
+# zapina injectovani v komponentach pres @inject, zde to dava smysl, protoze ProjectInitializer je
+# uzce spjat s konkretnim projektem a neni tudiz moc znovupouzitelny
+decorator:
+    Libs\ProjectInitializer:
+        inject: on

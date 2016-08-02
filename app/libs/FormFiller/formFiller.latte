@@ -1,0 +1,17 @@
+<div class="form_filler">
+    <a href="#" onclick="formTesterFill(form_testing_data); return false;">fill form</a> |
+    <a href="#" onclick="formTesterFillSend(form_testing_data, {$form_name}); return false;">fill and send</a>
+</div>
+
+<script>
+    var form_testing_data = {
+        {foreach $inputs as $key => $value}
+            {$key}: {$value},
+        {/foreach}
+    };
+
+    var fillers = document.getElementsByClassName('form_filler');
+    fillers[0].parentElement.className += ' form_filler';
+    /* fiksme bude fungovat pouze pro jeden formular */
+</script>
+

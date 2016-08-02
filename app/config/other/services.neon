@@ -1,0 +1,44 @@
+services:
+    -
+        class: Console\ProjectInstall
+        tags: [kdyby.console.command]
+    router: Routers\RouterFactory::createRouter
+    tracy.logger:
+        autowired: no
+    logger:
+        class: Libs\IcLogger
+        arguments: [%appDir%/../log, 'noreply@test.cz']
+        inject: yes
+
+    - Libs\ProjectInitializer
+    - Model\Users
+    - Model\Authenticator
+    - Model\Authorizator
+    - Model\Patients
+
+    - App\Forms\FormFactory
+    - App\Forms\SignFormFactory
+    - Nette\Mail\SendmailMailer
+
+    # BASEMODULE
+
+
+    # ADMINMODULE
+
+
+    # FRONTMODULE
+#    - FrontModule\Components\ISignInFormFactory
+#    - FrontModule\Components\ISignUpFormFactory
+#    - FrontModule\Components\IForgottenPasswordFormFactory
+#    - FrontModule\Components\ISubscribeFormFactory
+#    - FrontModule\Components\IContactFormFactory
+
+#    - Kdyby\Doctrine\DI\OrmExtension
+#
+#    -
+##        class: Gedmo\Uploadable\UploadableListener
+#        tags: [kdyby.subscriber]
+#    -
+#        class: Libs\NetteUploadableListener
+#        tags: [kdyby.subscriber]
+#

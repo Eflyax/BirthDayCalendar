@@ -1,0 +1,55 @@
+#gallery_container{
+	position:relative;
+	margin:0 auto;
+	width:600px;
+	padding:0 30px; /*for the buttons */
+	background:#eee;
+	border-radius:5px;
+	box-shadow: 0 2px 3px #888;
+}
+#gallery{
+	position:relative;
+	height:100px;
+	width:600px;
+	overflow:hidden;
+}
+#slider{
+	position:absolute;
+	left:0px;
+	height:100px;
+}
+#slider img{
+	height:100.999%; /* fixes some MOZ image resize inconsistencies */
+	float:left;
+	cursor:pointer;
+	border-right:3px solid transparent; /* instead of margin that could leat to some wrong widths calculations. */
+}
+.gal_btn{
+	position:absolute;
+	top:0px;
+	width:30px; /*the container padding */
+	height:40px;
+	padding:30px 0;
+	text-align:center;
+	font-size:30px;
+	cursor:pointer;
+}
+.gal_left{left:0px;}
+.gal_right{right:0px;}
+/* end GALLERY */
+
+/* TOOLTIP ADDON */
+#tooltip{
+	position:absolute;
+	z-index:100;
+	width:300px;
+	padding:10px;
+	background:#fff;
+	background: rgba(255,255,255,0.3);
+	box-shadow:0px 3px 6px -2px #111;
+	display:none;
+}
+#tooltip *{
+	width:100%;
+	vertical-align:middle;
+}

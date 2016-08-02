@@ -1,0 +1,14 @@
+webloader:
+    css:
+        default:
+            joinFiles: false
+            remoteFiles:
+                - /css/baseModule/style.css
+                - /css/frontModule/style.css
+                - /css/frontModule/responsive.css
+    js:
+        default:
+            joinFiles: false
+            remoteFiles:
+                - /js/frontModule/scripts.js
+                - /js/baseModule/scripts.js

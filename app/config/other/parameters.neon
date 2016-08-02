@@ -1,0 +1,5 @@
+parameters:
+    dev_servers: [127.0.0.1, localhost]
+    copyright: ''
+    upload_paths:
+        gallery: /www/images/gallery/

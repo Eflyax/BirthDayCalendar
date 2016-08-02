@@ -1,0 +1,108 @@
+<div id="order_form">
+    {form form}
+        <div class="row form-group">
+            <div class="col-xs-4 text-right"></div>
+            <div class="col-xs-4">Platba předem</div>
+            <div class="col-xs-4">Platba na místě</div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-xs-4 text-right">Jednodenní plné</div>
+            <div class="col-xs-4">
+                {label ticket_price:90, class => "price-radio"} {input ticket_price:90} {$_label}{/label}
+            </div>
+            <div class="col-xs-4 cash">
+                {label ticket_price:100, class => "price-radio"} {input ticket_price:100} {$_label}{/label}
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-xs-4 text-right">Jednodenní zlevněné</div>
+            <div class="col-xs-4">
+                {label ticket_price:60, class => "price-radio"} {input ticket_price:60} {$_label}{/label}
+            </div>
+            <div class="col-xs-4 cash">
+                {label ticket_price:70, class => "price-radio"} {input ticket_price:70} {$_label}{/label}
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-xs-4 text-right">Třídenní plné</div>
+            <div class="col-xs-4">
+                {label ticket_price:180, class => "price-radio"} {input ticket_price:180} {$_label}{/label}
+            </div>
+            <div class="col-xs-4 cash">
+                {label ticket_price:200, class => "price-radio"} {input ticket_price:200} {$_label}{/label}
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-xs-4 text-right">Třídenní zlevněné</div>
+            <div class="col-xs-4">
+                {label ticket_price:135, class => "price-radio"} {input ticket_price:135} {$_label}{/label}
+            </div>
+            <div class="col-xs-4 cash">
+                {label ticket_price:150, class => "price-radio"} {input ticket_price:150} {$_label}{/label}
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-xs-4 text-right">
+                {label quantity/}
+            </div>
+            <div class="col-md-8">
+                <input type="number" n:name="quantity" min="1">
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-xs-4 text-right">
+                Celková cena
+            </div>
+            <div class="col-md-8" id="pay_on_site">
+                <label class="form-control form-control-static" id="recalculate"><b>90,-</b></label>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-xs-4 text-right">
+                {label name/}
+            </div>
+            <div class="col-md-8">
+                {input name}
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-xs-4 text-right">
+                {label surname/}
+            </div>
+            <div class="col-md-8">
+                {input surname}
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-xs-4 text-right">
+                {label email/}
+            </div>
+            <div class="col-md-8">
+                {input email}
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-xs-4 col-md-offset-4">
+                {input send}
+            </div>
+        </div>
+    {/form}
+    <ul class="small-text">
+        <li><span class="red">*</span> Různé druhy lístků objednávejte jednotlivě</li>
+        <li><span class="red">**</span> Nárok na zlevněné vstupné mají studenti (po předložení platného průkazu),
+            důchodci, ZTP, ZTP/P a děti od 3
+            do 15 let.
+        </li>
+        <li><span class="red">***</span> Děti do 3 let mají vstupné zdarma.</li>
+    </ul>
+</div>
+
