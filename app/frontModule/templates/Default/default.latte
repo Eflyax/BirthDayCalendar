@@ -3,12 +3,15 @@
         <div class="col-sm-8">
             <!-- Responsive calendar - START -->
             <div class="responsive-calendar">
+
                 <div class="controls">
-                    <a class="pull-left" data-go="prev" id="prev">
+                    <a n:href="Default, $month-1" class="pull-left">
                         <div class="btn btn-primary"><i class="fa fa-arrow-left"></i> Předchozí</div>
                     </a>
+
                     <h4><span data-head-year></span> <span data-head-month></span></h4>
-                    <a class="pull-right" data-go="next" id="next">
+
+                    <a n:href="Default, $month+1" class="pull-right">
                         <div class="btn btn-primary">Další <i class="fa fa-arrow-right"></i></div>
                     </a>
                 </div>
@@ -29,10 +32,53 @@
             <!-- Responsive calendar - END -->
         </div>
         <div class="col-sm-4">
-            tady je sloupec vprao
+            {snippet showPatients}
+
+                {ifset $patients}
+                    {if count($patients)}
+
+                        <div class="alert alert-success">
+                            {*<strong>Success!</strong> Indicates a successful or positive action.*}
+                            <i class="fa fa-birthday-cake fa-2x"></i>  {$birthday_header}
+                        </div>
+
+
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Jméno</th>
+                                <th>Příjmení</th>
+                                <th>Akce</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr n:foreach="$patients as $patient">
+                                <td>
+                                    {$patient->name}
+                                </td>
+                                <td>
+                                    {$patient->surname}
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-danger" data-toggle="Archivovat" data-placement="top" title="Archivovat"><i class="fa fa-ban"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {else}
+                        <div class="alert alert-warning">
+                            Dnes nemá narozeniny <strong>žádný</strong> pacient
+                        </div>
+
+                    {/if}
+                {/ifset}
+
+            {/snippet}
 
         </div>
     </div>
+
+
 {/block}
 
 {block style}
@@ -45,7 +91,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $.getJSON("default/calendar-current", function (json) {
+            $.getJSON("default/calendar-month/{$month|noescape}", function (json) {
                 $(".responsive-calendar").responsiveCalendar(json);
             });
 

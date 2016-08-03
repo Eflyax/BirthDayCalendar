@@ -9,7 +9,6 @@
  # Copyright © w3widgets 2013 All Rights Reserved
  */
 
-
 (function () {
 
     (function ($) {
@@ -172,12 +171,13 @@
                     if (dayEvents.url) {
                         var calendar_day = day.find("a");
                         calendar_day.attr("href", dayEvents.url);
-                        console.log(day);
+                        calendar_day.attr("class", "ajax");
 
-                        calendar_day.click(function (e) {
-                            alert("ahoj");
-                            e.preventDefault();
-                        });
+
+                        // calendar_day.click(function (e) {
+                        //     // <a n:href="showDay!" class="ajax">Ukaž den</a>
+                        //     e.preventDefault();
+                        // });
 
                     }
                 }

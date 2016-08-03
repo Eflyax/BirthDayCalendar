@@ -35,16 +35,26 @@ class Patients
         return $query->fetchAll();
     }
 
-    public function findByMonth($month)
+    public function findByMonthAndDay($month, $day)
     {
-        $query = $this->db->query('SELECT * FROM '.self::TABLE.' WHERE MONTH(birth_date)=?', $month);
-
-        return $query->fetchAll();
+        $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE MONTH(birth_date)=? AND DAY(birth_date)=?', $month, $day);
+        $result = $query->fetchAll();
+        
+        return $result;
     }
 
     public function save($array_hash)
     {
         $this->table->insert($array_hash);
+    }
+
+    public function findByMonth($month)
+    {
+        
+        $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE MONTH(birth_date)=? ', $month);
+        $result = $query->fetchAll();
+
+        return $result;
     }
 
 
