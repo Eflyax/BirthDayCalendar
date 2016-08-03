@@ -1,6 +1,11 @@
 parameters:
 
-doctrine:
+#doctrine:
+#    user: root
+#    password: ''
+#    dbname: usmivejtese
+
+database:
+    dsn: 'mysql:host=127.0.0.1;dbname=usmivejtese'
     user: root
     password: ''
-    dbname: usmivejtese

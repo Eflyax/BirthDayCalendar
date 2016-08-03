@@ -6,6 +6,7 @@ namespace Libs;
 use DateTime;
 use Entity\Patient;
 use Model\Patients;
+use Nette\Utils\ArrayHash;
 use PHPExcel;
 use PHPExcel_IOFactory;
 
@@ -28,11 +29,14 @@ class DentistLoader
 
     private $patient_index_name_surname;
 
+    /** @var  Patients */
+    private $patients;
 
-    public function __construct($filename)
+    public function __construct($filename, Patients $patients)
     {
         $this->PHP_Excel = PHPExcel_IOFactory::load($filename);
         $this->initHeader();
+        $this->patients = $patients;
     }
 
     private function initHeader()
@@ -58,27 +62,27 @@ class DentistLoader
         }
     }
 
-    public function importPatients(Patients $patients)
+    public function importPatients()
     {
         $row = 2;
         $person_id = $this->readPatientId($row);
         While ($person_id) {
             $person_id = $this->readPatientId($row);
-            $patient = new Patient();
+            $patient = new ArrayHash();
             $name_array = explode(' ', $this->readPatientFullName($row));
             $patient->name = $name_array[count($name_array) - 1];
-
+            $patient->surname = "";
             for ($i = 0; $i < count($name_array) - 1; $i++) {
                 $patient->surname .= $name_array[$i] . ' ';
             }
             $patient->person_id = $person_id;
             $patient->birth_date = $this->personIdToDate($person_id);
 
-            if($person_id == null){
+            if ($person_id == null) {
                 continue;
             }
 
-            $patients->save($patient);
+            $this->patients->save($patient);
 
             $row++;
         }

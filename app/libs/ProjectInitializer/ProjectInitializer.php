@@ -1,19 +1,7 @@
 <?php
 namespace Libs;
 
-use Entity\AttendantDepartment;
-use Entity\Content;
-use Entity\EmailTemplate;
-use Entity\Gallery;
-use Entity\Hotel;
-use Entity\Language;
-use Entity\Lector;
-use Entity\LectorDepartment;
 use Entity\User;
-use Kdyby\Doctrine\EntityManager;
-use Libs\TranslationParser\TranslationParser;
-use Model\Galleries;
-use Model\Translations;
 use Nette\Application\LinkGenerator;
 use Nette\Object;
 use Nette\Utils\ArrayHash;
@@ -21,10 +9,8 @@ use Nette\Utils\Strings;
 
 class ProjectInitializer extends Object
 {
-	/** @var EntityManager @inject */
-	public $em;
-	/** @var \Model\Users @inject */
-	public $users;
+
+
 
 	public function initialize()
 	{
@@ -39,7 +25,7 @@ class ProjectInitializer extends Object
 
 	private function addContents()
 	{
-		$this->addContent('faq', 'FAQ', 'faq text');
+//		$this->addContent('faq', 'FAQ', 'faq text');
 	}
 
 	///////////// Single addings
