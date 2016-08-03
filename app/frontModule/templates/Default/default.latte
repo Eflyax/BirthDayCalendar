@@ -5,11 +5,11 @@
         <div class="responsive-calendar">
             <div class="controls">
                 <a class="pull-left" data-go="prev">
-                    <div class="btn btn-primary">Prev</div>
+                    <div class="btn btn-primary"><i class="fa fa-arrow-left"></i> Předchozí</div>
                 </a>
                 <h4><span data-head-year></span> <span data-head-month></span></h4>
                 <a class="pull-right" data-go="next">
-                    <div class="btn btn-primary">Next</div>
+                    <div class="btn btn-primary">Další <i class="fa fa-arrow-right"></i></div>
                 </a>
             </div>
             <hr/>
@@ -36,12 +36,12 @@
 {/block}
 
 {block style}
-    <link href="css/responsive-calendar.css" rel="stylesheet">
+    <link href="{$basePath}/css/responsive-calendar.css" rel="stylesheet">
 {/block}
 
 
 {block script}
-    <script src="js/responsive-calendar.js"></script>
+    <script src="{$basePath}/js/responsive-calendar.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $(".responsive-calendar").responsiveCalendar({
