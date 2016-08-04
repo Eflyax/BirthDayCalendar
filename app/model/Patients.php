@@ -37,7 +37,7 @@ class Patients
 
     public function findByMonthAndDay($month, $day)
     {
-        $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE MONTH(birth_date)=? AND DAY(birth_date)=?', $month, $day);
+        $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE MONTH(birth_date)=? AND DAY(birth_date)=? AND archived =?', $month, $day, 0);
         $result = $query->fetchAll();
         
         return $result;
@@ -51,10 +51,15 @@ class Patients
     public function findByMonth($month)
     {
         
-        $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE MONTH(birth_date)=? ', $month);
+        $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE MONTH(birth_date)=? AND archived =?', $month, 0);
         $result = $query->fetchAll();
 
         return $result;
+    }
+
+    public function update($id, $data)
+    {
+        $this->table->where('id', $id)->update($data);
     }
 
 

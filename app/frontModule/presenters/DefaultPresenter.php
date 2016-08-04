@@ -29,14 +29,18 @@ class DefaultPresenter extends FrontPresenter
 
         $this->template->month = $month;
         $this->template->patients = $this->patients->findByMonthAndDay($month, date('d'));
-        $this->template->birthday_header = 'Dne '.date('d').'. '.$month.'. '.date('Y').' mají narozeniny:';
+        $this->template->birthday_day = date('d');
+        $this->template->birthday_month = date('m');
+        $this->template->birthday_year = date('Y');
+
+
     }
 
     public function actionCalendarMonth($id)
     {
         $current_year = date("Y");
         $patients = $this->patients->findByMonth($id);
-        $patients = $this->patients->findAll();
+//        $patients = $this->patients->findAll();
 
         $result = [];
         foreach ($patients as $patient) {
@@ -45,7 +49,7 @@ class DefaultPresenter extends FrontPresenter
                 $result[$date_index]['number']++;
             } else {
                 $result[$date_index]['number'] = 1;
-                $result[$date_index]['url'] = '?do=showDay&month=' . $patient->birth_date->format('m') . '&day=' . $patient->birth_date->format('d');
+                $result[$date_index]['url'] = '/?do=showDay&month=' . $patient->birth_date->format('m') . '&day=' . $patient->birth_date->format('d');
             }
         }
         $wrapper['time'] = date('Y-' . sprintf('%02d', $id));
@@ -67,11 +71,19 @@ class DefaultPresenter extends FrontPresenter
 
     public function handleShowDay($month, $day)
     {
-        $this->template->birthday_header = 'Dne '.$day.'. '.$month.'.'.date('Y').' mají narozeniny:';
+        $this->template->birthday_day = $day;
+        $this->template->birthday_month = $month;
         $this->template->patients = $this->patients->findByMonthAndDay($month, $day);
         if ($this->isAjax()) {
             $this->redrawControl('showPatients');
         }
+    }
+
+    public function handleArchive($id_patient, $month, $day)
+    {
+        $data = ['archived' => 1];
+        $this->patients->update($id_patient, $data);
+        
     }
 
 }

@@ -39,7 +39,9 @@
 
                         <div class="alert alert-success">
                             {*<strong>Success!</strong> Indicates a successful or positive action.*}
-                            <i class="fa fa-birthday-cake fa-2x"></i>  {$birthday_header}
+                            <i class="fa fa-birthday-cake fa-2x"></i>
+                            Dne {$birthday_day}. {$birthday_month}. mají narozeniny:
+
                         </div>
 
 
@@ -60,7 +62,9 @@
                                     {$patient->surname}
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-danger" data-toggle="Archivovat" data-placement="top" title="Archivovat"><i class="fa fa-ban"></i></a>
+                                    <a n:href="Archive!, $patient->id, $birthday_month, $birthday_day"
+                                            class="btn btn-danger ajax archive-button" data-toggle="Archivovat"
+                                            title="Archivovat" onClick="hide(this)"><i class="fa fa-ban"></i></a>
                                 </td>
                             </tr>
                             </tbody>
@@ -89,12 +93,18 @@
 {block script}
     <script src="{$basePath}/js/responsive-calendar.js"></script>
     <script type="text/javascript">
+
+        function hide(e) {
+            $(e).closest("tr").fadeOut( "slow", function() {
+
+            });
+        }
+
         $(document).ready(function () {
 
             $.getJSON("default/calendar-month/{$month|noescape}", function (json) {
                 $(".responsive-calendar").responsiveCalendar(json);
             });
-
         });
 
     </script>
