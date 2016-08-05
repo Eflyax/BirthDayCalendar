@@ -8,3 +8,6 @@ services:
 
     - Model\Patients
     - Latte\Engine
+
+
+    - App\Forms\INewPatientFormFactory

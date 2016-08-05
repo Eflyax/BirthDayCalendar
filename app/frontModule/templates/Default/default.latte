@@ -64,10 +64,23 @@
                                     <strong>{$patient->birth_day}</strong> let
                                 </td>
                                 <td>
-                                    <a n:href="Archive!, $patient->id, $birthday_month, $birthday_day"
-                                            class="btn btn-danger ajax archive-button" data-toggle="Archivovat"
-                                            title="Archivovat" onClick="hide(this)"><i class="fa fa-ban"></i>
+                                    <a n:href="Employee!, $patient->id, $birthday_month, $birthday_day"
+                                            class="ajax archive-button {if $patient->employee} purple{else}gray{/if}"
+                                            title="Zaměstnanec">
+                                        <i class="fa fa-user-md fa-2x"></i>
                                     </a>
+                                    <a n:href="Favorite!, $patient->id, $birthday_month, $birthday_day"
+                                            class="ajax archive-button {if $patient->favorite} star-yellow{else}gray{/if}"
+                                            data-toggle="Archivovat"
+                                            title="Oblíbený pacient" onClick="star(this)">
+                                        <i class="fa fa-star fa-2x"></i>
+                                    </a>
+                                    <a n:href="Archive!, $patient->id, $birthday_month, $birthday_day"
+                                            class="ajax archive-button color-red" data-toggle="Archivovat"
+                                            title="Archivovat" onClick="hide(this)"><i class="fa fa-archive fa-2x"></i>
+                                    </a>
+
+
                                 </td>
                             </tr>
                             </tbody>
@@ -102,6 +115,7 @@
 
             });
         }
+
 
         $(document).ready(function () {
 

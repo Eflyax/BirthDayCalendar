@@ -1,35 +1,51 @@
 {block content}
+
+
+    <div class="row">
+        <div class="col-sm-8"></div>
+        <div class="col-sm-4">
+            <button class="btn btn-success pull-left fa-2x" data-toggle="modal" data-target="#myModal"><i
+                        class="fa fa-user-plus"></i> Přidat pacienta
+            </button>
+        </div>
+    </div>
+
+    <hr>
+
+    {foreach $flashes as $flash}
+        <div class="alert flash alert-{$flash->type}">{$flash->message}</div>
+    {/foreach}
+
+
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">
-
 
                     <form role="search" method="get">
                         <div class="form-inline">
                             <i class="fa fa-search"></i>
                             <input type="text" name="search"
                                    {ifset $search}value="{$search}"
-                                   {/ifset}class="form-control" placeholder="Koho hledáte?">
+                                   {/ifset}class="form-control search" placeholder="Koho hledáte?" id="focus">
                             <input type="submit" class="btn btn-primary" value="Hledat">
 
                             <div class="pull-right"> Rychlý filtr:
-                                <a href="#" class="btn btn-purple">Zaměstnanci <i class="fa fa-user-md"></i></i></a>
-                                <a href="#" class="btn btn-orange">Oblíbení <i class="fa fa-star-o"></i></a>
-                                <a href="#" class="btn btn-danger">Archiv <i class="fa fa-archive"></i></a>
+                                <a href="/user/?filter=employee" class="btn btn-purple">Zaměstnanci <i
+                                            class="fa fa-user-md"></i></i></a>
+                                <a href="/user/?filter=favorite" class="btn btn-yellow">Oblíbení <i
+                                            class="fa fa-star-o"></i></a>
+                                <a href="/user/?filter=archived" class="btn btn-danger">Archiv <i
+                                            class="fa fa-archive"></i></a>
                             </div>
                         </div>
                     </form>
-
-
                 </div>
             </div>
 
-            <div class="alert alert-info">
-                <i class="fa fa-info-circle fa-2x"></i> V archivu jsou pacienti, kteří se <strong>nezobrazují</strong> v
-                kalendáři. Pacienti odstranění z
-                archivu se budou opět zobrazovat v kalendáři.
-            </div>
+            {ifset $filter}
+                {include '../components/'.$filter.'.latte'}
+            {/ifset}
 
             {ifset $patients}
                 {if count($patients)}
@@ -51,26 +67,71 @@
                                 {$patient->surname}
                             </td>
                             <td>
-                                <a n:href="Unarchive!, $patient->id"
-                                        class="btn btn-success ajax archive-button" data-toggle="Archivovat"
-                                        title="Odstranit z archivu" onClick="hide(this)"><i class="fa fa-check"></i></a>
+                                <a n:href="Employee!, $patient->id"
+                                        class="ajax archive-button {if $patient->employee} purple{else}gray{/if}"
+                                        data-toggle="Zaměstnanec"
+                                        title="Zaměstnanec" onClick="employee(this)">
+                                    <i class="fa fa-user-md fa-2x"></i>
+                                </a>
+                                <a n:href="Favorite!, $patient->id"
+                                        class="ajax archive-button {if $patient->favorite} star-yellow{else}gray{/if}"
+                                        data-toggle="Archivovat"
+                                        title="Oblíbený pacient" onClick="star(this)">
+                                    <i class="fa fa-star fa-2x"></i>
+                                </a>
+
+                                {if $patient->archived}
+                                    <a n:href="Unarchive!, $patient->id"
+                                            class="ajax archive-button color-green" data-toggle="Archivovat"
+                                            title="Odstranit z archivu" onClick="hide(this)"><i
+                                                class="fa fa-check fa-2x"></i>
+                                    </a>
+                                {else}
+                                    <a n:href="Archive!, $patient->id"
+                                            class="ajax archive-button color-red" data-toggle="Archivovat"
+                                            title="Archivovat" onClick="hide(this)"><i class="fa fa-archive fa-2x"></i>
+                                    </a>
+                                {/if}
+
                             </td>
                         </tr>
                         </tbody>
                     </table>
 
                 {else}
-                    <h2>V archivu není žádný pacient</h2>
+                    <h2>Nebyl nalezen žádný pacient</h2>
                 {/if}
             {/ifset}
 
         </div>
     </div>
+
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Přidat pacienta</h4>
+                </div>
+                <div class="modal-body">
+                    {control newPatientForm}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 {/block}
 
 
-
 {block script}
+    <script src="{$basePath}/js/jquery-ui.min.js"></script>
     <script type="text/javascript">
 
         function hide(e) {
@@ -79,9 +140,37 @@
             });
         }
 
-        //        $(document).ready(function () {
-        //
-        //        });
+        function star(e) {
+            if ($(e).closest("a").hasClass("gray")) {
+                $(e).closest("a").removeClass('gray');
+                $(e).closest("a").addClass('star-yellow');
+            } else {
+                $(e).closest("a").removeClass('star-yellow');
+                $(e).closest("a").addClass('gray');
+            }
+
+        }
+
+        function employee(e) {
+            if ($(e).closest("a").hasClass("gray")) {
+                $(e).closest("a").removeClass('gray');
+                $(e).closest("a").addClass('purple');
+            } else {
+                $(e).closest("a").removeClass('purple');
+                $(e).closest("a").addClass('gray');
+            }
+
+        }
+//
+//        $( function() {
+//            $( ".datepicker" ).datepicker({
+//                changeMonth: true,
+//                changeYear: true
+//            });
+//        } );
+
+        $('#focus').focus();
+
 
     </script>
 {/block}

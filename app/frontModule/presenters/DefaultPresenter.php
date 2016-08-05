@@ -79,4 +79,30 @@ class DefaultPresenter extends FrontPresenter
 
     }
 
+
+    public function handleEmployee($id_patient, $month, $day)
+    {
+        $patient = $this->patients->findOneBy(['id' => $id_patient]);
+        $data = ['employee' => 1];
+        if ($patient->employee) {
+            $data = ['employee' => 0];
+        }
+
+        $this->patients->update($id_patient, $data);
+        $this->handleShowDay($month, $day);
+    }
+
+
+    public function handleFavorite($id_patient, $month, $day)
+    {
+        $patient = $this->patients->findOneBy(['id' => $id_patient]);
+        $data = ['favorite' => 1];
+        if ($patient->favorite) {
+            $data = ['favorite' => 0];
+        }
+
+        $this->patients->update($id_patient, $data);
+        $this->handleShowDay($month, $day);
+    }
+
 }

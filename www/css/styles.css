@@ -1030,9 +1030,34 @@ h1.page-header {
     background-color: orangered;
     color: black;
 }
+.purple{
+    color: purple;
+}
+a.gray{
+    color: #a6b4ce;
+}
+.star-yellow
+{
+    color: yellow;
+    text-shadow: 0px 0px 20px black;
+}
+a.star-yellow, a.star-yellow:hover, a.star-yellow:focus {
+    color: yellow;
+}
+a.purple, a.purple:hover, a.purple:focus {
+     color: purple;
+ }
 
-
-
+.yellow{
+    color: yellow;
+}
+.btn-yellow{
+    background-color: yellow;
+    color: black;
+}
+.color-green{
+    color: green;
+}
 
 
 

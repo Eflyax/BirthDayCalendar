@@ -6,6 +6,7 @@ use Entity\Patient;
 use Model\base\BaseService;
 use Nette;
 use Nette\Database\Context;
+use Nette\Utils\ArrayHash;
 
 class Patients
 {
@@ -37,7 +38,7 @@ class Patients
 
     public function findByMonthAndDay($month, $day)
     {
-        $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE MONTH(birth_date)=? AND DAY(birth_date)=? AND archived =?', $month, $day, 0);
+        $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE MONTH(birth_date)=? AND DAY(birth_date)=? AND archived =? ORDER BY  employee DESC, favorite DESC', $month, $day, 0);
         $patients = $query->fetchAll();
 
         $result = [];
@@ -77,8 +78,13 @@ class Patients
     {
         if (is_numeric($search)) {
             $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE person_id=? ', $search);
-        }else{
-            $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE name=? OR surname=?', $search, $search);
+        } else {
+            $name_array = explode(' ', $search);
+            if (count($name_array) <= 1) {
+                $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE name LIKE ?', '%' . $search . '%', ' OR surname LIKE ?', '%' . $search . '%');
+            } else {
+                $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE name LIKE ?', '%' . $name_array[0] . '%', ' AND surname LIKE ?', '%' . $name_array[1] . '%');
+            }
         }
         $patients = $query->fetchAll();
 
@@ -92,5 +98,25 @@ class Patients
         return $query->fetchAll();
     }
 
+    public function findBy(array $criteria)
+    {
+        $query = $this->table->select('*');
+        foreach ($criteria as $key => $value) {
+            $query->where($key, $value);
+        }
+
+        return $query->fetchAll();
+
+    }
+
+    public function findOneBy(array $criteria)
+    {
+        $query = $this->table->select('*');
+        foreach ($criteria as $key => $value) {
+            $query->where($key, $value);
+        }
+
+        return ArrayHash::from($query->fetch()->toArray());
+    }
 
 }

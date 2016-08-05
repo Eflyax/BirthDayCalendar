@@ -32,10 +32,12 @@ class DentistLoader
     /** @var  Patients */
     private $patients;
 
-    public function __construct($filename, Patients $patients)
+    public function __construct($filename = null, Patients $patients)
     {
-        $this->PHP_Excel = PHPExcel_IOFactory::load($filename);
-        $this->initHeader();
+        if ($filename) {
+            $this->PHP_Excel = PHPExcel_IOFactory::load($filename);
+            $this->initHeader();
+        }
         $this->patients = $patients;
     }
 
@@ -103,8 +105,14 @@ class DentistLoader
         ];
     }
 
-    private function personIdToDate($patient_id)
+    public function personIdToDate($patient_id)
     {
+        $patient_id = str_replace('/', '', $patient_id);
+
+        if(!is_numeric($patient_id)){
+            throw new \Exception('Rodné číslo není číslo');
+        }
+
         $year = substr($patient_id, 0, 2) + 1900;
         $month = substr($patient_id, 2, 2);
         if ($month >= 13) {
