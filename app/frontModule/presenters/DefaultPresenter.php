@@ -14,15 +14,9 @@ class DefaultPresenter extends FrontPresenter
     /** @var Patients @inject */
     public $patients;
 
+
     public function actionDefault($month = null)
     {
-//        $path = __DIR__ . '/../../../www/files/pacienti_min.ods';
-//        $dentist = new DentistLoader($path, $this->patients);
-//        $dentist->importPatients();
-
-//        dump( $this->patients->findByMonthAndDay(8, 8));
-//        exit;
-
         if (!$month) {
             $month = date('m');
         }
@@ -30,10 +24,9 @@ class DefaultPresenter extends FrontPresenter
         $this->template->month = $month;
         $this->template->patients = $this->patients->findByMonthAndDay($month, date('d'));
         $this->template->birthday_day = date('d');
-        $this->template->birthday_month = date('m');
+        $this->template->birthday_month = $month;
         $this->template->birthday_year = date('Y');
-
-
+        $this->template->page_header = "Kalendář";
     }
 
     public function actionCalendarMonth($id)
@@ -83,7 +76,7 @@ class DefaultPresenter extends FrontPresenter
     {
         $data = ['archived' => 1];
         $this->patients->update($id_patient, $data);
-        
+
     }
 
 }

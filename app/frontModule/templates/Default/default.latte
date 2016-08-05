@@ -1,18 +1,18 @@
 {block content}
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-7">
             <!-- Responsive calendar - START -->
             <div class="responsive-calendar">
 
                 <div class="controls">
                     <a n:href="Default, $month-1" class="pull-left">
-                        <div class="btn btn-primary"><i class="fa fa-arrow-left"></i> Předchozí</div>
+                        <div class="btn btn-primary"><i class="fa fa-arrow-left"></i> Předchozí měsíc</div>
                     </a>
 
                     <h4><span data-head-year></span> <span data-head-month></span></h4>
 
                     <a n:href="Default, $month+1" class="pull-right">
-                        <div class="btn btn-primary">Další <i class="fa fa-arrow-right"></i></div>
+                        <div class="btn btn-primary">Další měsíc <i class="fa fa-arrow-right"></i></div>
                     </a>
                 </div>
                 <hr/>
@@ -31,7 +31,7 @@
             </div>
             <!-- Responsive calendar - END -->
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             {snippet showPatients}
 
                 {ifset $patients}
@@ -41,15 +41,14 @@
                             {*<strong>Success!</strong> Indicates a successful or positive action.*}
                             <i class="fa fa-birthday-cake fa-2x"></i>
                             Dne {$birthday_day}. {$birthday_month}. mají narozeniny:
-
                         </div>
-
 
                         <table class="table table-hover">
                             <thead>
                             <tr>
                                 <th>Jméno</th>
                                 <th>Příjmení</th>
+                                <th>Věk</th>
                                 <th>Akce</th>
                             </tr>
                             </thead>
@@ -62,9 +61,13 @@
                                     {$patient->surname}
                                 </td>
                                 <td>
+                                    <strong>{$patient->birth_day}</strong> let
+                                </td>
+                                <td>
                                     <a n:href="Archive!, $patient->id, $birthday_month, $birthday_day"
                                             class="btn btn-danger ajax archive-button" data-toggle="Archivovat"
-                                            title="Archivovat" onClick="hide(this)"><i class="fa fa-ban"></i></a>
+                                            title="Archivovat" onClick="hide(this)"><i class="fa fa-ban"></i>
+                                    </a>
                                 </td>
                             </tr>
                             </tbody>
@@ -95,7 +98,7 @@
     <script type="text/javascript">
 
         function hide(e) {
-            $(e).closest("tr").fadeOut( "slow", function() {
+            $(e).closest("tr").fadeOut("slow", function () {
 
             });
         }

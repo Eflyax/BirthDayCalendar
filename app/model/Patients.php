@@ -38,8 +38,14 @@ class Patients
     public function findByMonthAndDay($month, $day)
     {
         $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE MONTH(birth_date)=? AND DAY(birth_date)=? AND archived =?', $month, $day, 0);
-        $result = $query->fetchAll();
-        
+        $patients = $query->fetchAll();
+
+        $result = [];
+        foreach ($patients as $patient) {
+            $patient->birth_day = (date('Y') - $patient->birth_date->format('Y'));
+            $result[] = $patient;
+        }
+
         return $result;
     }
 
@@ -50,16 +56,40 @@ class Patients
 
     public function findByMonth($month)
     {
-        
         $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE MONTH(birth_date)=? AND archived =?', $month, 0);
-        $result = $query->fetchAll();
+        $patients = $query->fetchAll();
 
-        return $result;
+        return $patients;
     }
 
     public function update($id, $data)
     {
         $this->table->where('id', $id)->update($data);
+    }
+
+    public function findArchived()
+    {
+        $result = $this->table->select('*')->where('archived', 1);
+        return $result;
+    }
+
+    public function findBySearch($search)
+    {
+        if (is_numeric($search)) {
+            $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE person_id=? ', $search);
+        }else{
+            $query = $this->db->query('SELECT * FROM ' . self::TABLE . ' WHERE name=? OR surname=?', $search, $search);
+        }
+        $patients = $query->fetchAll();
+
+        return $patients;
+    }
+
+    public function findLimit($limit)
+    {
+        $query = $this->table->select('*')->limit($limit);
+
+        return $query->fetchAll();
     }
 
 

@@ -64,12 +64,20 @@ class DentistLoader
 
     public function importPatients()
     {
+        $imported = 0;
+        $duplicity = 0;
+
         $row = 2;
-        $person_id = $this->readPatientId($row);
-        While ($person_id) {
+//        $person_id = $this->readPatientId($row);
+        $person_name = $this->readPatientFullName($row);
+
+        While ($person_name !== null) {
             $person_id = $this->readPatientId($row);
+
+
             $patient = new ArrayHash();
-            $name_array = explode(' ', $this->readPatientFullName($row));
+            $person_name = $this->readPatientFullName($row);
+            $name_array = explode(' ', $person_name);
             $patient->name = $name_array[count($name_array) - 1];
             $patient->surname = "";
             for ($i = 0; $i < count($name_array) - 1; $i++) {
@@ -78,14 +86,21 @@ class DentistLoader
             $patient->person_id = $person_id;
             $patient->birth_date = $this->personIdToDate($person_id);
 
-            if ($person_id == null) {
-                continue;
+            if (strlen($person_id) >= 8) {
+                try {
+                    $this->patients->save($patient);
+                    $imported++;
+                } catch (\Exception $e) {
+                    $duplicity++;
+                }
             }
-
-            $this->patients->save($patient);
-
             $row++;
         }
+
+        return [
+            'duplicity' => $duplicity,
+            'imported' => $imported,
+        ];
     }
 
     private function personIdToDate($patient_id)

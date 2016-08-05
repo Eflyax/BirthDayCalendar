@@ -1,10 +1,13 @@
 {block content}
     <div class="row">
-        <div class="col-sm-6">
-            Vlevo
-        </div>
-        <div class="col-sm-6">
-            Vpravo
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="alert alert-info">
+                <strong>{$imported}</strong> nových pacientů bylo importováno do systému
+            </div>
+            <hr>
+            <div class="alert alert-warning">
+                <strong>{$duplicity} </strong> pacientů nebylo importováno, protože jsou již v databázi
+            </div>
         </div>
     </div>
 {/block}
