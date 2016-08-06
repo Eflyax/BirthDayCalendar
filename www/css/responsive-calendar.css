@@ -26,7 +26,7 @@
 .responsive-calendar .day a {
     color: #000000;
     display: block;
-    padding: 20% 0 20% 0;
+    padding: 40% 0 10% 0;
 }
 
 .responsive-calendar .day a:hover {

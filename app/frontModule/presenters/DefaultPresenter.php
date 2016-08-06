@@ -44,6 +44,12 @@ class DefaultPresenter extends FrontPresenter
                 $result[$date_index]['number'] = 1;
                 $result[$date_index]['url'] = '/?do=showDay&month=' . $patient->birth_date->format('m') . '&day=' . $patient->birth_date->format('d');
             }
+            if ($patient->employee) {
+                $result[$date_index]['employee'] = 1;
+            }
+            if ($patient->favorite) {
+                $result[$date_index]['favorite'] = 1;
+            }
         }
         $wrapper['time'] = date('Y-' . sprintf('%02d', $id));
         $wrapper['events'] = $result;

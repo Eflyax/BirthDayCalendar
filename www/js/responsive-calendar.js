@@ -160,7 +160,11 @@
             },
             addOthers: function (day, dayEvents) {
                 var badge;
+
+                console.log(dayEvents);
+
                 if (typeof dayEvents === "object") {
+
                     if (dayEvents.number != null) {
                         badge = $("<span></span>").html(dayEvents.number).addClass("badge");
                         if (dayEvents.badgeClass != null) {
@@ -168,6 +172,18 @@
                         }
                         day.append(badge);
                     }
+
+                    if (dayEvents.employee) {
+                        badge = $("<span></span>").html('<i class="fa fa-user-md purple"></i>').addClass("employee-badge");
+                        day.append(badge);
+                    }
+                    if (dayEvents.favorite) {
+                        badge = $("<span></span>").html('<i class="fa fa-star"></i>').addClass("favorite-badge");
+                        day.append(badge);
+                    }
+
+
+
                     if (dayEvents.url) {
                         var calendar_day = day.find("a");
                         calendar_day.attr("href", dayEvents.url);

@@ -55,6 +55,7 @@
                         <tr>
                             <th>Jméno</th>
                             <th>Příjmení</th>
+                            <th>Datum narození</th>
                             <th>Akce</th>
                         </tr>
                         </thead>
@@ -65,6 +66,9 @@
                             </td>
                             <td>
                                 {$patient->surname}
+                            </td>
+                            <td>
+                                {$patient->birth_date|date:'%d.%m.%Y'}
                             </td>
                             <td>
                                 <a n:href="Employee!, $patient->id"
